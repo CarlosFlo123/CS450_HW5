@@ -46,7 +46,15 @@ def add_many(x, elem, lst):
 
 
 #Ex4__________________________________________________
-#def f(suits, numbers):
+def f(suits, numbers):
+  aux = []
+  for i in suits:
+    for j in range (len(numbers)):
+      aux.append(list(set(mrg(list(i), [numbers[j]]))))
+  print(aux)
+
+#f(['S', 'C'], [1, 2, 3])
+
 
 #Ex5__________________________________________________
 def mrg(ls1, ls2):
@@ -60,39 +68,55 @@ def mrg(ls1, ls2):
 
 #Ex6__________________________________________________
 tmp = []
-def branches(tree):
+def right(tree):
   return tree[1:]
-def is_leaf (tree):
-  return not branches(tree)
+def left(tree):
+  return tree[:1]
 def root(tree):
   return tree[0]
-def fltn(ls):
-  if (is_leaf(ls)):
-    tmp.append(ls)
-  else:
-    tmp.append(branches(ls[0]))
-    return fltn(branches(ls))
-  return tmp
-#fltn([1, 2, 3])
-x = [1, [2, 3], 4]
-fltn(x)
-#branches(x)
 
+def fltn(ls):     #Recursion Rocks!!!!
+  if ls == []:
+    return ls
+  if isinstance(root(ls), list):
+    return fltn(root(ls)) + fltn(right(ls))
+  return left(ls) + fltn(right(ls))
 
+#x = [1, 2, 3]
+#x = [1, [2, 3], 4]
+#x = [[1, [1, 1]], 1, [1, 1]]
+#fltn(x)
 
 
 #Ex7__________________________________________________
+def chk_elm(lst, n):  #SAME IDEA OF #6 BUT USING OR OPERATOR FOR DEAL WITH BOOL
+  if lst == []:
+    return False
+  if isinstance(root(lst), list):
+    return chk_elm(root(lst), n) or chk_elm(right(lst), n)
+  elif root(lst) == n:
+    return True
+  else:
+    return False or chk_elm(right(lst), n)
 
-#def chk_elm(lst, n):
-#  for i in range (lst):
-#    for j in range(i):
-#      if (x == lst[i][j]):
-#        return True
-#  return False
+#a = [[1, [2]], 3, [[4], [5, [6]]]]
+#chk_elm(a, 3)
+#chk_elm(a, 6)
+
 
 
 #Ex8__________________________________________________
-#def sym(ls):
+def sym(ls):
+  if ls == ls[::-1]:
+    return True
+  return False
+
+#sym([])
+#ym([1])
+#sym([1, 4, 5, 1])
+#sym([1, 4, 4, 1])
+#sym(['l', 'o', 'l'])
 
 
-  
+#Ex9__________________________________________________
+#Ex10_________________________________________________
